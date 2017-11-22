@@ -4,9 +4,11 @@ import * as fs from 'fs';
 import * as timers from 'timers';
 import * as async from 'async';
 
-import { ChampAbilities } from './abilities/abilities';
-var champs;
+import { ChampAbilities } from './modules/abilities';
+import { ChampBattlerites } from './modules/battlerites';
+import { Champs } from './modules/champs';
 
+var champs;
 var xray = Xray();
 
 function testUrl (url: string, callback: any) {
@@ -20,26 +22,22 @@ function testUrl (url: string, callback: any) {
     });
 }
 
-function updateChamps (callback: any) {
-    xray('https://battlerite.gamepedia.com/Battlerite_Wiki', '#champsContainer', [{
-        images: xray(['div>div>a>img@src']),
-        names: xray(['div>div>p>a'])
-    }])(function (err: any, obj: any) {
-        console.log('Updating Champions...', obj, err);
-        callback(obj);
-    });
-}
-
 function getAllChamps () {
-    updateChamps(function (champs: Array<String>) {
-        ChampAbilities.getAll(champs);
+    Champs.getChamps(function (champs: Array<String>) {
+        console.log('GOT CHAMPS ', champs);
+        // ChampAbilities.getAll(champs);
+    });
+    Champs.getChampImages(function (images: Array<String>) {
+        console.log('GOT CHAMP IMAGES ', images);
+        // ChampAbilities.getAll(champs);
     });
 }
 
 // getAllChamps();
-testUrl(`https://battlerite.gamepedia.com/Bakko`, function (obj: any) {
-    console.log('CALLBACK OBJ ', obj);
-});
-// getAllChamps();
+// testUrl(`https://battlerite.gamepedia.com/Bakko`, function (obj: any) {
+//     console.log('CALLBACK OBJ ', obj);
+// });
+getAllChamps();
 
 // ChampAbilities.getByChamp('Bakko');
+// ChampBattlerites.getByChamp('Bakko');
