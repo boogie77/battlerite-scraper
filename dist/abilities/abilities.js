@@ -1,13 +1,13 @@
 "use strict";
-exports.__esModule = true;
-var Xray = require("x-ray");
-var xray = new Xray();
+Object.defineProperty(exports, "__esModule", { value: true });
+const Xray = require("x-ray");
+const xray = Xray();
 var ChampAbilities;
 (function (ChampAbilities) {
     function getAll(champs) {
         if (champs) {
-            champs.map(function (champ, index) {
-                xray("https://battlerite.gamepedia.com/" + champ, 'div.ability', [{
+            champs.map((champ, index) => {
+                xray(`https://battlerite.gamepedia.com/${champ}`, 'div.ability', [{
                         title: '.ability--title',
                         type: '.ability--type',
                         desc: '.ability--description',
@@ -19,7 +19,7 @@ var ChampAbilities;
                         castTime: '.ability--casttime-value',
                         abilityTitles: xray('.ability--properties', ['.ability--property_title']),
                         abilityProps: xray('.ability--properties', ['.ability--property_value'])
-                    }]).write("./data/abilities/" + champ + ".json");
+                    }]).write(`./data/abilities/${champ}.json`);
             });
         }
         else {
@@ -29,7 +29,7 @@ var ChampAbilities;
     ChampAbilities.getAll = getAll;
     function getByChamp(champ) {
         if (champ) {
-            xray("https://battlerite.gamepedia.com/" + champ, 'div.ability', [{
+            xray(`https://battlerite.gamepedia.com/${champ}`, 'div.ability', [{
                     title: '.ability--title',
                     type: '.ability--type',
                     desc: '.ability--description',
@@ -41,10 +41,10 @@ var ChampAbilities;
                     castTime: '.ability--casttime-value',
                     abilityTitles: xray('.ability--properties', ['.ability--property_title']),
                     abilityProps: xray('.ability--properties', ['.ability--property_value'])
-                }]).write("./data/abilities/" + champ + ".json");
+                }]).write(`./data/abilities/${champ}.json`);
         }
         else {
-            console.error(champ + " Update Failed!!");
+            console.error(`${champ} Update Failed!!`);
         }
     }
     ChampAbilities.getByChamp = getByChamp;

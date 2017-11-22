@@ -2,12 +2,12 @@ import * as Xray from 'x-ray';
 import * as request from 'request';
 import * as timers from 'timers';
 
-const xray = new Xray();
+const xray = Xray();
 
 export module ChampAbilities {
-    export function getAll (champs: any) {
+    export function getAll(champs: any) {
         if (champs) {
-            champs.map((champ, index) => {
+            champs.map((champ: any, index: number) => {
                 xray(`https://battlerite.gamepedia.com/${champ}`, 'div.ability', [{
                     title: '.ability--title',
                     type: '.ability--type',
@@ -22,11 +22,11 @@ export module ChampAbilities {
                     abilityProps: xray('.ability--properties', ['.ability--property_value'])
                 }]).write(`./data/abilities/${champ}.json`);
             });
-    } else {
-        console.error('Champ Update Failed!!');
+        } else {
+            console.error('Champ Update Failed!!');
+        }
     }
-    }
-    export function getByChamp (champ: string) {
+    export function getByChamp(champ: string) {
         if (champ) {
             xray(`https://battlerite.gamepedia.com/${champ}`, 'div.ability', [{
                 title: '.ability--title',
