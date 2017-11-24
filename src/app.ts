@@ -23,11 +23,11 @@ function testUrl (url: string, callback: any) {
 }
 
 function getAllChamps () {
-    Champs.getChamps(function (champs: Array<String>) {
+    Champs.listChamps(function (champs: Array<String>) {
         console.log('GOT CHAMPS ', champs);
         // ChampAbilities.getAll(champs);
     });
-    Champs.getChampImages(function (images: Array<String>) {
+    Champs.getChampAvatars(function (images: Array<String>) {
         console.log('GOT CHAMP IMAGES ', images);
         // ChampAbilities.getAll(champs);
     });
@@ -37,7 +37,10 @@ function getAllChamps () {
 // testUrl(`https://battlerite.gamepedia.com/Bakko`, function (obj: any) {
 //     console.log('CALLBACK OBJ ', obj);
 // });
-getAllChamps();
+// getAllChamps();
+Champs.getChampInfo('Ashka', function (champ: any) {
+    console.log('Champ info! ', champ);
+});
 
 // ChampAbilities.getByChamp('Bakko');
 // ChampBattlerites.getByChamp('Bakko');
